@@ -12,7 +12,7 @@ using RentAndSell.Car.API.Data;
 namespace RentAndSell.Car.API.Migrations
 {
     [DbContext(typeof(CarRentDbContext))]
-    [Migration("20241112182546_FirstInit")]
+    [Migration("20241112195326_FirstInit")]
     partial class FirstInit
     {
         /// <inheritdoc />

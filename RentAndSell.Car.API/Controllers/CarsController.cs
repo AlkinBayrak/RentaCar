@@ -77,19 +77,19 @@ namespace RentAndSell.Car.API.Controllers
 		}
 
 
-		[HttpGet("Yili/{year:range(1980,2024)}")]
+		[HttpGet("Year/{year:range(1980,2024)}")]
 		public ActionResult Filter(int year)
 		{
 			return Ok($"{year} model ait arabalar");
 		}
 
-		[HttpGet("Yili/{year:range(1980,2024)}/Markasi/{brand:alpha}")]
+		[HttpGet("Year/{year:range(1980,2024)}/Marka/{brand:alpha}")]
 		public ActionResult Filter(int year, string brand)
 		{
 			return Ok($"{year} {brand} markasına ait arabalar");
 		}
 
-		[HttpGet("Yili/{year:range(1980,2024)}/Markasi/{brand:alpha}/Modeli/{model}")]
+		[HttpGet("Year/{year:range(1980,2024)}/Marka/{brand:alpha}/Model/{model}")]
 		public ActionResult Filter(int year, string brand, string model)
 		{
 			return Ok($"{year} {brand} {model} modeline ait arabalar");
