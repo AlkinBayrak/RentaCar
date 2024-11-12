@@ -1,0 +1,6 @@
+@RentAndSell.Car.API_HostAddress = http://localhost:5002
+
+GET {{RentAndSell.Car.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
