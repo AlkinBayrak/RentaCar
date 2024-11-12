@@ -1,6 +1,6 @@
 ﻿namespace RentAndSell.Car.API.Data.Entities.Abstract
 {
-	public class BaseEntity
+	public abstract class BaseEntity
 	{
         public int Id { get; set; }
         public bool IsActive { get; set; } = true;
