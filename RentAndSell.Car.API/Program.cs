@@ -1,12 +1,16 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using RentAndSell.Car.API;
 using RentAndSell.Car.API.Data;
+using RentAndSell.Car.API.Services;
 using System.Text;
 using HttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAuthentication("YetkiKontrol").AddScheme<AuthenticationSchemeOptions,YetkiKontrolYakalayicisi>("YetkiKontrol",null);
 
 builder.Services.AddDbContext<CarRentDbContext>(opt =>
 {
