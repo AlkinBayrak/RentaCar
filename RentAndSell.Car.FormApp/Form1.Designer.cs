@@ -30,6 +30,7 @@
 		{
 			components = new System.ComponentModel.Container();
 			groupBox1 = new GroupBox();
+			txtId = new TextBox();
 			btnSil = new Button();
 			btnGuncelle = new Button();
 			cBoxYil = new ComboBox();
@@ -50,7 +51,8 @@
 			sanzimanTipiDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
 			yiliDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
 			arabaViewModelBindingSource = new BindingSource(components);
-			txtId = new TextBox();
+			txtCarId = new TextBox();
+			btnRead = new Button();
 			groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)nbrUpDownYil).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dgvArabaList).BeginInit();
@@ -59,6 +61,8 @@
 			// 
 			// groupBox1
 			// 
+			groupBox1.Controls.Add(btnRead);
+			groupBox1.Controls.Add(txtCarId);
 			groupBox1.Controls.Add(txtId);
 			groupBox1.Controls.Add(btnSil);
 			groupBox1.Controls.Add(btnGuncelle);
@@ -76,6 +80,14 @@
 			groupBox1.TabStop = false;
 			groupBox1.Text = "YENİ KAYIT";
 			// 
+			// txtId
+			// 
+			txtId.Location = new Point(20, 250);
+			txtId.Name = "txtId";
+			txtId.PlaceholderText = "Record ID";
+			txtId.Size = new Size(100, 23);
+			txtId.TabIndex = 11;
+			// 
 			// btnSil
 			// 
 			btnSil.Location = new Point(182, 221);
@@ -84,6 +96,7 @@
 			btnSil.TabIndex = 10;
 			btnSil.Text = "SİL";
 			btnSil.UseVisualStyleBackColor = true;
+			btnSil.Click += btnSil_Click;
 			// 
 			// btnGuncelle
 			// 
@@ -93,6 +106,7 @@
 			btnGuncelle.TabIndex = 9;
 			btnGuncelle.Text = "GUNCELLE";
 			btnGuncelle.UseVisualStyleBackColor = true;
+			btnGuncelle.Click += btnGuncelle_Click;
 			// 
 			// cBoxYil
 			// 
@@ -240,14 +254,23 @@
 			// 
 			arabaViewModelBindingSource.DataSource = typeof(Models.ArabaViewModel);
 			// 
-			// txtId
+			// txtCarId
 			// 
-			txtId.Location = new Point(20, 250);
-			txtId.Name = "txtId";
-			txtId.PlaceholderText = "Record ID";
-			txtId.Size = new Size(100, 23);
-			txtId.TabIndex = 11;
-			txtId.Visible = false;
+			txtCarId.Location = new Point(20, 279);
+			txtCarId.Name = "txtCarId";
+			txtCarId.PlaceholderText = "Car ID";
+			txtCarId.Size = new Size(100, 23);
+			txtCarId.TabIndex = 12;
+			// 
+			// btnRead
+			// 
+			btnRead.Location = new Point(147, 279);
+			btnRead.Name = "btnRead";
+			btnRead.Size = new Size(75, 23);
+			btnRead.TabIndex = 13;
+			btnRead.Text = "OKU";
+			btnRead.UseVisualStyleBackColor = true;
+			btnRead.Click += btnRead_Click;
 			// 
 			// Form1
 			// 
@@ -294,5 +317,7 @@
 		private DataGridViewTextBoxColumn sanzimanTipiDataGridViewTextBoxColumn;
 		private DataGridViewTextBoxColumn yiliDataGridViewTextBoxColumn;
 		private TextBox txtId;
+		private Button btnRead;
+		private TextBox txtCarId;
 	}
 }
