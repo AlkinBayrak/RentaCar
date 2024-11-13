@@ -8,6 +8,6 @@
         public DateTime? Updated { get; set; }
         public DateTime? Deleted { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

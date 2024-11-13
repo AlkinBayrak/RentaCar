@@ -35,6 +35,22 @@ namespace RentAndSell.Car.API.Controllers
 		public ActionResult Post(Araba car)
 		{
 			_dbContext.Arabalar.Add(car);
+
+			//ArabaTarihce arabaTarihce = new ArabaTarihce();
+			//arabaTarihce.Marka = car.Marka;
+			//arabaTarihce.Model = car.Model;
+			//arabaTarihce.Yili = car.Yili;
+			//arabaTarihce.YakitTuru = car.YakitTuru;
+			//arabaTarihce.SanzimanTipi = car.SanzimanTipi;
+			//arabaTarihce.MotorTipi = car.MotorTipi;
+			//arabaTarihce.IsActive = car.IsActive;
+			//arabaTarihce.IsDeleted = car.IsDeleted;
+			//arabaTarihce.IslemTipi = IslemTipi.Inserted;
+			//arabaTarihce.IslemZamani = DateTime.Now;
+
+			//_dbContext.ArabaTarihcesi.Add(arabaTarihce);
+			//bu kısımda işlem kayıtları tutmak istiyoruz ve böyle kodla yapmak yerine sqlde trigger yaptık
+
 			_dbContext.SaveChanges();
 
 			return Created();
