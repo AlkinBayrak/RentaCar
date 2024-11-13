@@ -1,8 +1,9 @@
-﻿using RentAndSell.Car.API.Data.Entities.Abstract;
+﻿using RentAndSell.Car.API.Commons.Enums;
+using RentAndSell.Car.API.Data.Entities.Abstract;
 
 namespace RentAndSell.Car.API.Data.Entities.Concrete
 {
-	public class Araba : BaseEntity
+    public class Araba : BaseEntity
 	{
         public string Marka { get; set; }
         public string Model { get; set; }
