@@ -26,6 +26,15 @@ builder.Services.AddControllers();
 
 builder.Services.ConfigureApplicationCookie(opt =>
 {
+	//opt.Cookie = new CookieBuilder()
+	//{
+	//	Name = "YetkiKontrol",
+	//	HttpOnly = false,
+	//	SameSite = SameSiteMode.Lax,
+	//	SecurePolicy = CookieSecurePolicy.Always
+	//};
+
+
 	opt.Events.OnRedirectToLogin = (context) =>
 	{
 		context.Response.StatusCode = StatusCodes.Status401Unauthorized;
