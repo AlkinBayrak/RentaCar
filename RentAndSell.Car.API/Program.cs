@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentAndSell.Car.API;
 using RentAndSell.Car.API.Data;
+using RentAndSell.Car.API.Data.Entities.Concrete;
 using RentAndSell.Car.API.Services;
 using System.Text;
 using HttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
@@ -17,7 +19,27 @@ builder.Services.AddDbContext<CarRentDbContext>(opt =>
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("CarRentDbCon"));
 });
 
+builder.Services.AddIdentity<Kullanici,IdentityRole>()
+				 .AddEntityFrameworkStores<CarRentDbContext>();
+
 builder.Services.AddControllers();
+
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+	opt.Events.OnRedirectToLogin = (context) =>
+	{
+		context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+		return Task.CompletedTask;
+	};
+
+	opt.Events.OnRedirectToAccessDenied = (context) =>
+	{
+		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+
+		return Task.CompletedTask;
+	};
+});
 
 var app = builder.Build();
 
