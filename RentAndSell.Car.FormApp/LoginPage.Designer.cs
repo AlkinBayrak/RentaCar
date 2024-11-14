@@ -62,6 +62,7 @@
 			btnLogin.TabIndex = 2;
 			btnLogin.Text = "Giriş";
 			btnLogin.UseVisualStyleBackColor = true;
+			btnLogin.Click += btnLogin_Click;
 			// 
 			// btnRegister
 			// 

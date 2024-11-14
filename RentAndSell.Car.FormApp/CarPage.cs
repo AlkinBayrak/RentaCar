@@ -4,16 +4,18 @@ using System.Net.Http.Json;
 
 namespace RentAndSell.Car.FormApp
 {
-	public partial class Form1 : Form
+	public partial class CarPage : Form
 	{
 		private HttpClient _httpClient;
 		private const string _endPoint = "Cars";
 
-		public Form1()
+		public CarPage()
 		{
 			InitializeComponent();
 			_httpClient = new HttpClient();
 			_httpClient.BaseAddress = new Uri("https://localhost:7247/api/");
+			_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", Program.BasicAuth);
+
 		}
 
 		private void Form1_Load(object sender, EventArgs e)

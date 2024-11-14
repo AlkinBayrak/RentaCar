@@ -32,7 +32,7 @@ namespace RentAndSell.Car.API.Controllers
 				loginResult.IsLogin = false;
 				loginResult.ErrorMessage = "Kullanıcı veya şifreniz yanlıştır";
 
-				return Ok(loginResult);
+				return Unauthorized(loginResult);
 			}
 
 			bool passwordChecked = _userManager.CheckPasswordAsync(kullanici, model.Password).Result;
@@ -42,7 +42,7 @@ namespace RentAndSell.Car.API.Controllers
 				loginResult.IsLogin = false;
 				loginResult.ErrorMessage = "Kullanıcı veya şifreniz yanlıştır";
 
-				return Ok(loginResult);
+				return Unauthorized(loginResult);
 			}
 
 			var usernamePassword = $"{model.UserName}:{model.Password}";

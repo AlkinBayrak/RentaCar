@@ -1,6 +1,6 @@
 ﻿namespace RentAndSell.Car.FormApp
 {
-	partial class Form1
+	partial class CarPage
 	{
 		/// <summary>
 		///  Required designer variable.

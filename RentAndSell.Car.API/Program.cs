@@ -11,59 +11,47 @@ using HttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMe
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddAuthentication(opt =>
-{
-	opt.DefaultScheme = "YetkiKontrol";
-	opt.DefaultAuthenticateScheme = "YetkiKontrol";
-	opt.DefaultChallengeScheme = "YetkiKontrol";
-	opt.DefaultForbidScheme = "YetkiKontrol";
-	opt.DefaultSignOutScheme = "YetkiKontrol";
-	opt.DefaultSignInScheme = "YetkiKontrol";
-})
-	.AddScheme<AuthenticationSchemeOptions,YetkiKontrolYakalayicisi>("YetkiKontrol",null);
-
 builder.Services.AddDbContext<CarRentDbContext>(opt =>
 {
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("CarRentDbCon"));
 });
 
-builder.Services.AddIdentity<Kullanici,IdentityRole>()
-				 .AddEntityFrameworkStores<CarRentDbContext>();
+builder.Services.AddIdentity<Kullanici, IdentityRole>()
+				.AddEntityFrameworkStores<CarRentDbContext>()
+				.AddDefaultTokenProviders();
+
+#region Basic Authentication Kodlarý
+//builder.Services.AddAuthentication("BasicAuthentication")
+//				.AddScheme<AuthenticationSchemeOptions, YetkiKontrolYaklayicisi>("BasicAuthentication", null)
+//				.AddCookie(opt =>
+//				{
+//					opt.Events.OnRedirectToLogin = (context) =>
+//					{
+//						context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+//						return Task.CompletedTask;
+//					};
+
+//					opt.Events.OnRedirectToAccessDenied = (context) =>
+//					{
+//						context.Response.StatusCode = StatusCodes.Status403Forbidden;
+//						return Task.CompletedTask;
+//					};
+//				}); 
+#endregion
+
+
 
 builder.Services.AddControllers();
 
-builder.Services.ConfigureApplicationCookie(opt =>
-{
-	//opt.Cookie = new CookieBuilder()
-	//{
-	//	Name = "YetkiKontrol",
-	//	HttpOnly = false,
-	//	SameSite = SameSiteMode.Lax,
-	//	SecurePolicy = CookieSecurePolicy.Always
-	//};
-
-
-	opt.Events.OnRedirectToLogin = (context) =>
-	{
-		context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-
-		return Task.CompletedTask;
-	};
-
-	opt.Events.OnRedirectToAccessDenied = (context) =>
-	{
-		context.Response.StatusCode = StatusCodes.Status403Forbidden;
-
-		return Task.CompletedTask;
-	};
-});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
@@ -208,14 +196,14 @@ app.MapControllers();
 //List<Car> cars = new List<Car>();
 
 
-////GET       https://localhost:7247/Cars               => AllCars
+////GET       https://localhost:7104/Cars               => AllCars
 
 //app.MapGet("/Cars", () =>
 //{
 //    return cars;
 //});
 
-////GET       https://localhost:7247/Cars/{id}          => Car With ID
+////GET       https://localhost:7104/Cars/{id}          => Car With ID
 
 //app.MapGet("/Cars/{id}", (int id) =>
 //{
@@ -223,7 +211,7 @@ app.MapControllers();
 //});
 
 
-////POST      https://localhost:7247/Cars               => jsonData Model ile New Car 
+////POST      https://localhost:7104/Cars               => jsonData Model ile New Car 
 
 //app.MapPost("/Cars", (Car car) =>
 //{
@@ -236,7 +224,7 @@ app.MapControllers();
 //});
 
 
-////PUT       https://localhost:7247/Cars/{id}          => jsonData Model ve ID ile Edit Car
+////PUT       https://localhost:7104/Cars/{id}          => jsonData Model ve ID ile Edit Car
 
 //app.MapPut("/Cars/{id}", (int id, Car car) =>
 //{
@@ -248,7 +236,7 @@ app.MapControllers();
 //    return car;
 //});
 
-////DELETE    https://localhost:7247/Cars/{id}          => Car ID ile Delete Car 
+////DELETE    https://localhost:7104/Cars/{id}          => Car ID ile Delete Car 
 
 //app.MapDelete("/Cars/{id}", (int id) =>
 //{
