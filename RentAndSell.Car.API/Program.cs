@@ -12,7 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddAuthentication("YetkiKontrol").AddScheme<AuthenticationSchemeOptions,YetkiKontrolYakalayicisi>("YetkiKontrol",null);
+builder.Services.AddAuthentication(opt =>
+{
+	opt.DefaultScheme = "YetkiKontrol";
+	opt.DefaultAuthenticateScheme = "YetkiKontrol";
+	opt.DefaultChallengeScheme = "YetkiKontrol";
+	opt.DefaultForbidScheme = "YetkiKontrol";
+	opt.DefaultSignOutScheme = "YetkiKontrol";
+	opt.DefaultSignInScheme = "YetkiKontrol";
+})
+	.AddScheme<AuthenticationSchemeOptions,YetkiKontrolYakalayicisi>("YetkiKontrol",null);
 
 builder.Services.AddDbContext<CarRentDbContext>(opt =>
 {
