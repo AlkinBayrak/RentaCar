@@ -20,6 +20,7 @@ namespace RentAndSell.Car.API.Services
 			_roleManager = roleManager;
 			_userManager = userManager;
 			_signInManager = signInManager;
+
 		}
 
 
