@@ -1,6 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using RentAndSell.Car.WebApp.Commons.Enums
+@model ArabaViewModel
 @{
+
+    List<SelectListItem> yillar = new List<SelectListItem>();
+
+    for (int i = 1940; i <= DateTime.Now.Year; i++)
+    {
+        yillar.Add(new SelectListItem(i.ToString(), i.ToString()));
+    }
+
+
 }
-<p>Create Sayfası</p>
+<form id="createCar">
+    <div class="row g-3">
+        <div class="col-md-12">
+            <input asp-for="Marka" class="form-control" placeholder="@Html.DisplayNameFor(m => m.Marka)" />
+            <span asp-validation-for="Marka" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <input asp-for="Model" class="form-control" placeholder="@Html.DisplayNameFor(m => m.Model)" />
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <select asp-for="Yili" class="form-control" asp-items="@yillar"></select>
+            <span asp-validation-for="Yili" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <select asp-for="YakitTuru" class="form-select" asp-items="Html.GetEnumSelectList<YakitTuru>()"></select>
+            <span asp-validation-for="YakitTuru" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <select asp-for="SanzimanTipi" class="form-select" asp-items="Html.GetEnumSelectList<SanzimanTipi>()"></select>
+            <span asp-validation-for="SanzimanTipi" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <select asp-for="MotorTipi" class="form-select" asp-items="Html.GetEnumSelectList<MotorTipi>()"></select>
+            <span asp-validation-for="MotorTipi" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <input type="button" class="btn btn-primary" value="Gönder" onclick="CreateCar();" />
+        </div>
+    </div>
+
+</form>
+
+<input type="hidden" id="_token" value="@ViewBag.Token" />
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/js/araba/create.js"></script>
+}
