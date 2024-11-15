@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RentAndSell.Car.API;
 using RentAndSell.Car.API.Data;
@@ -40,7 +42,40 @@ builder.Services.AddIdentity<Kullanici, IdentityRole>()
 //				});
 #endregion
 
+#region JWT Authentication Kodlarý
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				 .AddJwtBearer(opt =>
+				 {
+					 opt.TokenValidationParameters = new TokenValidationParameters
+					 {
+						 ValidIssuer = "CarApi",
+						 ValidAudience = "CarWeb",
+						 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("gizlikelime-þayet-bu-çok-gizlibirkelime")),
+						 ValidateIssuer = true,
+						 ValidateAudience = true,
+						 ValidateIssuerSigningKey = true,
+						 ValidateLifetime = true
+					 };
+				 });
+
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+	opt.Events.OnRedirectToLogin = (context) =>
+	{
+		context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+		return Task.CompletedTask;
+	};
+
+	opt.Events.OnRedirectToAccessDenied = (context) =>
+	{
+		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+		return Task.CompletedTask;
+	};
+});
+
+
+#endregion
 
 builder.Services.AddControllers();
 
