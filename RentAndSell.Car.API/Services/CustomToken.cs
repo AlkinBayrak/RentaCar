@@ -13,6 +13,8 @@ namespace RentAndSell.Car.API.Services
 
 			var usernameWithToken = $"{username}:{base64Mixed}"; // "goksel:karışıkaset"
 
+			//Merhaba Git Hub :D
+
 			var base64EncodeUserNameWithToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(usernameWithToken)); ;
 
 			return base64EncodeUserNameWithToken;
