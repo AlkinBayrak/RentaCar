@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentAndSell.Car.API.Data.Entities.Concrete;
 using RentAndSell.Car.API.Models;
+using RentAndSell.Car.API.Services;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace RentAndSell.Car.API.Controllers
@@ -45,13 +47,28 @@ namespace RentAndSell.Car.API.Controllers
 				return Unauthorized(loginResult);
 			}
 
-			var usernamePassword = $"{model.UserName}:{model.Password}";
-			var base64EncodeUserNamePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(usernamePassword));
-			var basicAuth = $"Basic {base64EncodeUserNamePassword}";
-			
+			#region Basic Auth Kodları
+			//var usernamePassword = $"{model.UserName}:{model.Password}";
+			//var base64EncodeUserNamePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(usernamePassword));
+			//var basicAuth = $"Basic {base64EncodeUserNamePassword}";
+
+			//loginResult.IsLogin = true;
+			//loginResult.BasicAuth = basicAuth;
+			#endregion
+
+			#region Custom Auth Token Kodları
+
+			var basic64EncodeUserNameWithToken = CustomToken.GenerateToken(model.UserName);
+
+			var basicAuth = $"CustomToken {basic64EncodeUserNameWithToken}";
+
 			loginResult.IsLogin = true;
 			loginResult.BasicAuth = basicAuth;
-			
+
+			#endregion
+
+
+
 
 
 			return Ok(loginResult);
